@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private userRepository: Repository<User>) { }
+    constructor(@InjectRepository(User, 'user') private userRepository: Repository<User>) { }
 
     async getUsers(): Promise<User[]> {
         const fields = ['user.user_id', 'user.name', 'user.email', 'user.created_at'];

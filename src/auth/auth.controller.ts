@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Session, UseInterceptors } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -17,9 +17,11 @@ export class AuthController {
     @ApiResponse({ status: 200, description: 'User logged successfully.'})
     @ApiResponse({ status: 200, description: 'Email & password not match!!'})
     @UseInterceptors(FileInterceptor('file', {}))
-    async signIn(@Body() signInDto: SignInDto, @I18n() i18n: I18nContext) {
+    async signIn(@Session() session, @Body() signInDto: SignInDto, @I18n() i18n: I18nContext, @Req() request: Request) {
         const user = await this.authService.signIn(signInDto.email, signInDto.password);
         if (user) {
+            session.user = user;
+            console.log(session)
             return {
                 'user': user,
                 'message': i18n.t(`lang.auth.success`)

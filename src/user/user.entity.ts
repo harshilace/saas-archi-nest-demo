@@ -16,6 +16,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column({ nullable: true })
+    db_name: string;
+
     @CreateDateColumn({ nullable: true })
     created_at: Date;
 

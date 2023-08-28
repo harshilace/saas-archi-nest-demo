@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpException, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpException, Param, ParseIntPipe, Post, Session } from '@nestjs/common';
 import { UserService } from './user.service';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -15,7 +15,8 @@ export class UserController {
     @Get('/list')
     @ApiResponse({ status: 200, description: 'User list getting successfully.'})
     @ApiResponse({ status: 401, description: 'Unauthorized.'})
-    async getUsers(@I18n() i18n: I18nContext) {
+    async getUsers(@I18n() i18n: I18nContext, @Session() session) {
+        console.log(session.user.db_name)
         const users = await this.userService.getUsers();
         return {
             'users' : users,
