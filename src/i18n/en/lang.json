@@ -1,0 +1,13 @@
+{
+  "welcome": "Welcome to NestJs.",
+  "data_success": "Data get successfully.",
+  "user": {
+    "list": "User list getting successfully.",
+    "not_found": "User does not exist!",
+    "store": "User stored successfully."
+  },
+  "auth": {
+    "success": "User logged successfully.",
+    "failed": "Email & password not match!!"
+  }
+}
