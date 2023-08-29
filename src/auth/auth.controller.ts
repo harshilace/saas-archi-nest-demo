@@ -21,6 +21,7 @@ export class AuthController {
         const user = await this.authService.signIn(signInDto.email, signInDto.password);
         if (user) {
             session.user = user;
+            console.log('session Controller')
             console.log(session)
             return {
                 'user': user,
